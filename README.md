@@ -1,6 +1,6 @@
 # Metod-Vizhez
 
-Установите colorama, если вы еще этого не сделали:
+Первым этап идёт установка colorama:
 $ pip install colorama
 
 
