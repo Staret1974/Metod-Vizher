@@ -9,14 +9,6 @@ $ python main.py
 
 
 
-Настраиваем Flask:
-python -m venv fproject\venv
-
-Директорию:cd fproject
-
-И установливаем Flask:       
-pip install flask
-
 
 
 
