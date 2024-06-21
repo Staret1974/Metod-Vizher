@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Методы шифровки</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: hsl(281, 77%, 55%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #5a5a5a;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: hsl(281, 77%, 55%);
+            border: 1px solid #dddddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        li:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        b {
+            color: #007bff;
+        }
+        form {
+            margin-top: 10px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Методы шифровки</h1>
+    <ul>
+        {% for method in methods %}
+            <li>
+                <b>{{ method.caption }}</b> - {{ method.description }}
+                <form action="{{ url_for('encrypt_form') }}" method="get" style="display:inline;">
+                    <input type="hidden" name="method_id" value="{{ method.id }}">
+                    <button type="submit">Использовать этот метод</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('home') }}">Вернуться домой</a>
+</body>
+</html>
