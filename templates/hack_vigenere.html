@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Главная</title>
+    <title>Взлом шифра Виженера</title>
     <style>
         @import url(https://fonts.googleapis.com/css?family=Exo:100);
 /* Background data (Original source: https://subtlepatterns.com/grid-me/) */
@@ -117,12 +117,22 @@ body::before {
     </style>
 </head>
 <body>
-    <h1></h1>
-    <p><a href="/users/list">Посмотреть пользователей</a></p>
-    <p><a href="/methods">Посмотреть методы</a></p>
-    <p><a href="/sessions">Посмотреть сессии</a></p>
-    <p><a href="/add_user_form">Добавить пользователя</a></p>
-    <p><a href="/hack_caesar">Взлом шифра Цезаря</a></p>
-    <p><a href="/hack_vigenere">Взлом шифра Виженера</a></p>
+    <h1>Взлом шифра Виженера</h1>
+    <form action="/hack_vigenere" method="post">
+        <label for="user_id">Пользователь:</label>
+        <select name="user_id" id="user_id">
+            {% for user in users %}
+                <option value="{{ user }}">{{ user }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="data_in">Зашифрованный текст:</label>
+        <textarea name="data_in" id="data_in" rows="4" cols="50"></textarea>
+        <br>
+        <label for="keyword">Ключевое слово:</label>
+        <input type="text" name="keyword" id="keyword">
+        <br>
+        <input type="submit" value="Взломать">
+    </form>
 </body>
 </html>
