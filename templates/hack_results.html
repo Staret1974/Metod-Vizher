@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Главная</title>
+    <title>Результаты взлома</title>
     <style>
         @import url(https://fonts.googleapis.com/css?family=Exo:100);
 /* Background data (Original source: https://subtlepatterns.com/grid-me/) */
@@ -117,12 +117,19 @@ body::before {
     </style>
 </head>
 <body>
-    <h1></h1>
-    <p><a href="/users/list">Посмотреть пользователей</a></p>
-    <p><a href="/methods">Посмотреть методы</a></p>
-    <p><a href="/sessions">Посмотреть сессии</a></p>
-    <p><a href="/add_user_form">Добавить пользователя</a></p>
-    <p><a href="/hack_caesar">Взлом шифра Цезаря</a></p>
-    <p><a href="/hack_vigenere">Взлом шифра Виженера</a></p>
+    <h1>Результаты взлома</h1>
+    <p>ID сессии: {{ session_id }}</p>
+    <table border="1">
+        <tr>
+            <th>Сдвиг/Ключ</th>
+            <th>Расшифрованный текст</th>
+        </tr>
+        {% for result in results %}
+            <tr>
+                <td>{{ result.shift or result.key }}</td>
+                <td>{{ result.decrypted_text }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>
