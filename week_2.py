@@ -197,7 +197,7 @@ def user_list():
 
 @app.route('/hack_caesar', methods=['GET'])
 def hack_caesar_form():
-    # Получение списка пользователей из базы данных
+
     users = User.query.with_entities(User.username).all()
     return render_template('hack_caesar.html', users=[user.username for user in users])
 
@@ -208,12 +208,10 @@ def hack_caesar():
     data_in = data['data_in']
     keyword = data['keyword']
 
-
     user = User.query.filter_by(username=user_id).first()
     if user and len(data_in) <= 1000:
         data_in_filtered = ''.join([c for c in data_in.upper() if c in ALPHABET])
         possible_results = []
-
 
         for shift in range(len(ALPHABET)):
             decrypted_text = caesar_cipher(data_in_filtered, shift, encrypt=False)
@@ -221,16 +219,17 @@ def hack_caesar():
                 possible_results.append({'shift': shift, 'decrypted_text': decrypted_text})
 
 
-                hack_entry = EncryptionHistory(
-                    username=user.username,
-                    text=data_in,
-                    result=','.join([res['decrypted_text'] for res in possible_results]),
-                    method='caesar',
-                    action='hack',
+        if possible_results:
+            hack_entry = EncryptionHistory(
+                username=user.username,
+                text=data_in_filtered,
+                result=','.join([res['decrypted_text'] for res in possible_results]),
+                method='caesar',
+                action='hack'
+            )
+            db.session.add(hack_entry)
+            db.session.commit()
 
-                )
-                db.session.add(hack_entry)
-                db.session.commit()
         return render_template('hack_results1.html', results=possible_results, username=user.username)
     else:
         return jsonify({"message": "Invalid input"}), 400
@@ -238,28 +237,24 @@ def hack_caesar():
 
 @app.route('/hack_vigenere', methods=['GET'])
 def hack_vigenere_form():
-    # Получение списка пользователей из базы данных
+
     users = User.query.with_entities(User.username).all()
     return render_template('hack_vigenere.html', users=[user.username for user in users])
 
 @app.route('/hack_vigenere', methods=['POST'])
 def hack_vigenere():
-    global session_id_counter
     data = request.form
     user_id = data['user_id']
     data_in = data['data_in']
     keyword = data['keyword']
-    parent_id = data.get('parent_id')
 
-    # Проверка наличия пользователя в базе данных
     user = User.query.filter_by(username=user_id).first()
     if user and len(data_in) <= 1000:
         data_in_filtered = ''.join([c for c in data_in.upper() if c in ALPHABET])
         possible_results = []
-        start_time = time.time()
 
-        # Оптимизированный взлом шифра Виженера
-        key_lengths = range(1, min(4, len(data_in_filtered) + 1))  # Ограничение длины ключа для оптимизации
+
+        key_lengths = range(1, min(4, len(data_in_filtered) + 1))
 
         def generate_vigenere_keys():
             for key_length in key_lengths:
@@ -268,29 +263,28 @@ def hack_vigenere():
 
         for key in generate_vigenere_keys():
             decrypted_text = vigenere_cipher(data_in_filtered, key, encrypt=False)
-            if keyword.upper() in decrypted_text:  # Проверка на ключевое слово
+            if keyword.upper() in decrypted_text:
                 possible_results.append({'key': key, 'decrypted_text': decrypted_text})
-                if len(possible_results) >= 10:  # Ограничение количества результатов для экономии памяти
+                if len(possible_results) >= 10:
                     break
 
-        if user and len(data_in) <= 1000:
 
+        if possible_results:
+            for result in possible_results:
+                history_entry = EncryptionHistory(
+                    username=user.username,
+                    text=data_in_filtered,
+                    result=result['decrypted_text'],
+                    method='vigenere',
+                    action='hack'
+                )
+                db.session.add(history_entry)
+            db.session.commit()
 
-            # Запись результатов в базу данных
-                for result in possible_results:
-                    history_entry = EncryptionHistory(
-                        username=user.username,
-                        text=data_in,
-                        result=result['decrypted_text'],
-                        method='Vigenere',
-                        action='hack'
-                    )
-                    db.session.add(history_entry)
-
-                    db.session.commit()
         return render_template('hack_results.html', results=possible_results, username=user.username)
     else:
         return jsonify({"message": "Invalid input"}), 400
+
 
 if __name__ == '__main__':
     app.run(debug=True)
