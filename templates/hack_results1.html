@@ -5,11 +5,11 @@
     <title>Результаты взлома</title>
 </head>
 <body>
-    <h1>Результаты взлома</h1>
+    <h1>Результаты взлома для пользователя {{ username }}</h1>
     {% if results %}
         <ul>
             {% for result in results %}
-                <li>Сдвиг(кол-во): {{ result.key }}, Расшифрованный текст: {{ result.decrypted_text }}</li>
+                <li>Сдвиг: {{ result.shift }}, Расшифрованный текст: {{ result.decrypted_text }}</li>
             {% endfor %}
         </ul>
     {% else %}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>История Шифрования</title>
+    <style>
+        @keyframes gradient-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient-bg 15s ease infinite;
+            color: #fff;
+        }
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-top: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+        }
+        th, td {
+            text-align: center;
+            padding: 12px;
+            border-bottom: 1px solid #fff;
+        }
+        th {
+            background-color: #556;
+            color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+           .back-button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            background-color: #333; /* Темно-серый фон */
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
+            position: fixed; /* Фиксированное позиционирование */
+            bottom: 20px; /* Отступ снизу */
+            left: 20px; /* Отступ слева */
+        }
+
+        .back-button:hover {
+            background-color: #555; /* Светло-серый фон при наведении */
+        }
+    </style>
+</head>
+<body>
+    <h2>История Шифрования</h2>
+    <table>
+        <tr>
+            <th>Текст</th>
+            <th>Результат</th>
+            <th>Действие</th>
+            <th>Метод</th>
+            <th>Время</th>
+            <th>Имя</th>
+        </tr>
+        {% for record in history %}
+        <tr>
+            <td>{{ record.text }}</td>
+            <td>{{ record.result }}</td>
+            <td>{{ record.display_method }}</td>
+            <td>{{ 'Шифрование' if record.action == 'encrypt' else 'Взлом' if record.action == 'hack' else 'Дешифрование' }}</td>
+            <td>{{ record.timestamp }}</td>
+            <td>{{ record.username }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/lobby" class="back-button">Назад</a>
+</body>
+</html>

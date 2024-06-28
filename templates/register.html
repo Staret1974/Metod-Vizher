@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #c31432, #240b36);
+        }
+        form {
+            width: 300px;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid #555;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #222;
+            color: #ddd;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            background-color: #333;
+        }
+        button[type="submit"] {
+            width: calc(100% + 4px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e84118;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #c23616;
+        }
+        a {
+            width: calc(100% + 4px);
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #5cb85c;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #4cae4c;
+        }
+        .home-button {
+            background-color: #9c88ff;
+        }
+        .home-button:hover {
+            background-color: #8c7ae6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Регистрация</h1>
+    <form method="post">
+        <input type="text" name="username" placeholder="Имя пользователя" required>
+        <input type="password" name="password" placeholder="Пароль" required>
+        <button type="submit">Зарегистрироваться</button>
+        <a class="home-button" href="/">На главную</a>
+    </form>
+</body>
+</html>

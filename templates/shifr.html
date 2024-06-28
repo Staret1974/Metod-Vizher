@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шифр Виженера</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            background-color: #282a36; /* Темный фон */
+            color: #f8f8f2; /* Светлый текст */
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        h1 {
+            color: #ff79c6; /* Розовый цвет заголовка */
+            margin-bottom: 2rem;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: #44475a; /* Серый фон контейнера */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 1rem;
+            color: #8be9fd; /* Голубой цвет меток */
+        }
+        input[type="text"],
+        textarea,
+        select {
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border: 1px solid #6272a4; /* Серо-голубой цвет границ */
+            border-radius: 5px;
+            background: #6272a4; /* Серо-голубой фон полей ввода */
+            color: #f8f8f2; /* Светлый текст */
+        }
+        input[type="submit"] {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #50fa7b; /* Зеленый фон кнопки */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"]:hover {
+            background-color: #40a35a; /* Темно-зеленый фон при наведении */
+        }
+        .logout-button {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #ff5555; /* Красный фон кнопки выхода */
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .logout-button:hover {
+            background-color: #bb2222; /* Темно-красный фон при наведении */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Шифр Вижернера</h1>
+        <form method="post">
+            <label for="method">Метод шифрования:</label>
+            <select name="method" id="method">
+                <option value="vigenere">Шифр Вижинера</option>
+                <option value="caesar">Шифр Цезаря</option>
+            </select>
+            <label for="text">Текст:</label>
+            <textarea name="text" id="text" required></textarea>
+            <label for="key">Ключ:</label>
+            <input type="text" name="key" id="key" required>
+            <div>
+                <input type="radio" name="action" value="encrypt" checked> Шифровать
+                <input type="radio" name="action" value="decrypt"> Расшифровать
+            </div>
+            <input type="submit" value="Ок">
+            {% if result %}
+                <h2>Результат:</h2>
+                <p>{{ result }}</p>
+            {% endif %}
+            <a href="/lobby" class="logout-button">Назад в лобби</a>
+        </form>
+    </div>
+</body>
+</html>
